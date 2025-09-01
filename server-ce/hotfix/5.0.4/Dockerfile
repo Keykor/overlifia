@@ -4,7 +4,7 @@ FROM sharelatex/sharelatex:5.0.3
 # from https://github.com/overleaf/internal/pull/18433
 COPY pr_18433.patch .
 RUN patch -p1 < pr_18433.patch && rm pr_18433.patch
-RUN npm install --include-workspace-root -w services/history-v1 swagger-tools@0.10.4 && rm -rf /root/.cache /root/.npm $(find /tmp/ -mindepth 1 -maxdepth 1)
+RUN npm install --include-workspace-root -w services/history-v1 swagger-tools@0.10.4
 
 # remove google-cloud packages which are unused in server-pro have a vulnerable dependency
 RUN npm uninstall -w libraries/logger @google-cloud/logging-bunyan

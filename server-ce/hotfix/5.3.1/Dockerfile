@@ -11,4 +11,3 @@ RUN npm install mongoose@^8.9.5 --save -w services/web \
     -w services/chat -w services/contacts -w services/docstore \
     -w services/history-v1 -w libraries/mongo-utils \
   && npm install mongodb@6.12.0 --save \
-  && rm -rf /root/.cache /root/.npm $(find /tmp/ -mindepth 1 -maxdepth 1)

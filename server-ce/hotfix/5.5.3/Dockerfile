@@ -8,15 +8,11 @@ FROM sharelatex/sharelatex:5.5.2
 # Fixup package.json and toolbar-items.tsx
 # Fix cron paths
 COPY *.patch .
-RUN --mount=type=cache,target=/root/.cache \
-  --mount=type=cache,target=/root/.npm \
-  --mount=type=cache,target=/overleaf/services/web/node_modules/.cache,id=server-ce-webpack-cache \
-  --mount=type=tmpfs,target=/tmp true \
-  &&  bash -ec 'for p in *.patch; do echo "=== Applying $p ==="; patch -p1 < "$p" && rm $p; done' \
-  &&  npm audit --audit-level=high \
-  &&  node genScript compile | bash \
-  &&  npm prune --omit=dev \
-  &&  apt remove -y linux-libc-dev
+RUN bash -ec 'for p in *.patch; do echo "=== Applying $p ==="; patch -p1 < "$p" && rm $p; done' \
+  && npm audit --audit-level=high \
+  && node genScript compile | bash \
+  && npm prune --omit=dev \
+  && apt remove -y linux-libc-dev
 
 # ../../bin/import_pr_patch.sh 27476
 # Remove tests
