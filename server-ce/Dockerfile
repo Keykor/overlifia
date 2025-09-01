@@ -2,8 +2,7 @@
 # Overleaf Community Edition (overleaf/overleaf)
 # ---------------------------------------------
 
-ARG OVERLEAF_BASE_TAG=sharelatex/sharelatex-base:latest
-FROM $OVERLEAF_BASE_TAG
+FROM sharelatex/sharelatex-base:latest
 
 WORKDIR /overleaf
 
