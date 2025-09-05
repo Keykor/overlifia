@@ -20,7 +20,14 @@ ADD patches/ /overleaf/patches
 
 # Install npm dependencies and build webpack assets
 # ------------------------
-RUN node genScript install | bash && node genScript compile | bash
+RUN node genScript install | bash && \
+    node genScript compile | bash && \
+    # Cleanup npm cache and temporary files to reduce image size
+    npm cache clean --force && \
+    rm -rf /tmp/.npm /tmp/* /var/tmp/* && \
+    # Clean package manager cache
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 # Copy runit service startup scripts to its location
 # --------------------------------------------------
